@@ -43,7 +43,7 @@ class Router:
             route = '/' + route
         while '//' in route:
             route = route.replace('//', '/')  
-        while route.endswith('/'):
+        while route.endswith('/') and len(route) > 1:
             route = route[:-1]  
         return route
     

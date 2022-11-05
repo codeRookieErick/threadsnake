@@ -18,7 +18,7 @@
 
 import json
 from socket import socket
-from typing import Dict, List
+from typing import Any, Dict, List
 
 from .session import Session
 
@@ -61,6 +61,7 @@ class HttpRequest(HttpQuery):
         self.files:Dict[str, str] = {}
         self.authorization = {}
         self.session:Session = None
+        self.data:Any = None
         self.raw = ''
         self.body:str = ''
         self.method:str = ''

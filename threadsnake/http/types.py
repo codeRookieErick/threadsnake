@@ -18,10 +18,12 @@
 
 from .core.httprequest import HttpRequest
 from .core.httpresponse import HttpResponse
-from typing import Any, Callable
+from typing import Any, Callable, Dict
 
 Next = Callable[[], None]
 Middleware = Callable[[Any, HttpRequest, HttpResponse, Next], None]
 Callback = Callable[[Any, HttpRequest, HttpResponse], None]
 ServerCallback = Callable[[HttpRequest, HttpResponse], None]
 CallbackMutator = Callable[[Callback], Callback]
+DictProvider = Callable[[], Dict[str, str]]
+RequestPredicate = Callable[[HttpRequest], bool]
