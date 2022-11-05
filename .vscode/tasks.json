@@ -1,0 +1,11 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "buildpackage",
+            "command": "py",
+            "args": ["-m build"],
+            "type": "shell"
+        }
+    ]
+}

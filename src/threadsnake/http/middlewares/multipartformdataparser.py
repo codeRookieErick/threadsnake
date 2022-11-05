@@ -81,7 +81,7 @@ def multipart_form_data_parser(tempFolder:str = None, filesDurationSec:int = 30)
     tempFolder = tempFolder or os.sep.join(['.', 'temp'])
     decoder:Callable[[str, HttpRequest], None] = None
     decoder = build_file_decoder(files, tempFolder, filesDurationSec)
-    def middleware(app:Application, req:HttpRequest, res:HttpResponse, next) -> None:
+    def middleware(app:Application, req:HttpRequest, res:HttpResponse, next:Next) -> None:
         if 'multipart/form-data' in req.contentType:
             boundary:str = ''
             req.contentType, boundary = [i.strip() for i in req.contentType.split(';', 1)]

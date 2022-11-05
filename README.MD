@@ -1,3 +1,3 @@
 # Threadsnake
 
-This is a new version of threadsnake
+Threadsnake. A tiny experimental server-side express-like library.
