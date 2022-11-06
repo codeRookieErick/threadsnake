@@ -1,4 +1,3 @@
-import json
 from typing import Any, Dict, List
 from threadsnake.http.router import Router
 from threadsnake.turbo import *

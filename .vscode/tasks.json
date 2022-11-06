@@ -4,8 +4,11 @@
         {
             "label": "buildpackage",
             "command": "py",
-            "args": ["-m build"],
-            "type": "shell"
+            "args": ["build_project.py"],
+            "type": "process",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
         }
     ]
 }

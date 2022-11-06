@@ -6,7 +6,7 @@ def readfile(filename):
 
 setuptools.setup(    
     name="threadsnake",
-    version="0.0.1",
+    version=readfile("src/threadsnake/version.txt"),
     author="Erick Fernando Mora Ramirez",
     author_email="erickfernandomoraramirez@gmail.com",
     description="A tiny experimental server-side express-like library",

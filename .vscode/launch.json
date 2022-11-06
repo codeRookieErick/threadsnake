@@ -10,7 +10,7 @@
             "name": "Python: Main File",
             "type": "python",
             "request": "launch",
-            "program": "main.py",
+            "program": "example/main.py",
             "console": "integratedTerminal",
             "justMyCode": true
         },
@@ -19,8 +19,8 @@
             "name": "Python: Build Package",
             "type": "python",
             "request": "launch",
-            "program": "main.py",
-            "console": "externalTerminal",
+            "program": "example/main.py",
+            "console": "integratedTerminal",
             "justMyCode": true
         }
     ]

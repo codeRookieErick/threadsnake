@@ -21,20 +21,12 @@ import socket
 import time
 from typing import Any, Callable, Dict, List, Tuple
 
+from .values.contenttypes import contentTypes
+from .values.responsecodes import responseCodes
+
 ClientAddress = Tuple[str, int]
 OnReceiveCallback = Callable[[Any, socket.socket, ClientAddress], bytes]
 
-contentTypes = {
-    "text/": ["html", "css"],
-    "text/javascript": ["js"],
-    "text/html": ["htm"],
-    "application/": ["json", "xml", "pdf", "exe"],
-    "image/": ["gif", "png", "jpeg", "bmp", "webp"],
-    "image/jpeg": ["jpg"],
-    "image/x-icon": ["ico"],
-    "audio/": ["mpeg", "webm", "ogg", "midi", "wav"],
-    "text/plain": ["txt", "*"]
-}
 
 def get_content_type(path:str):
     contentType = 'text/plain'
@@ -67,3 +59,18 @@ def decode_querystring(data:str) -> Dict[str, str]:
 
 def get_cookie_expiration_UTC(durationSec:float) -> str:
     return time.strftime("%a, %d %b %Y %H:%M:%S GMT", time.gmtime(time.time() + durationSec))
+
+def get_port(port:int, max_port=65535) -> int:
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        while port <= max_port:
+            try:
+                sock.bind(('', port))
+                sock.close()
+                return port
+            except OSError:
+                port += 1
+        else:
+            raise IOError('no free ports')
+
+def get_status_text_from_status_code(statusCode:int) -> str:
+    return responseCodes.get(statusCode, 'Unknown')

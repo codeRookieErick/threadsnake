@@ -18,14 +18,14 @@
 
 import json
 from typing import Any, Dict, List
-from .common import get_content_type, get_cookie_expiration_UTC
+from .common import get_content_type, get_cookie_expiration_UTC, get_status_text_from_status_code
 from .constants import HEADER_CONTENT_DISPOSITION, HEADER_CONTENT_LENGTH, HEADER_CONTENT_TYPE, HEADER_LOCATION, LINESEP
 
 class ResponseHead:
     def __init__(self) -> None:
         self.httpVersion:str = 'HTTP/1.1'
-        self.responseStatus:int = 200
-        self.responseStatusText:str = 'OK'
+        self.responseStatus:int = 404
+        self.responseStatusText:str = 'NotFound'
         self.headers:Dict[str, List[str]] = dict()
     
     def append_header(self, name:str, value:str):
@@ -78,7 +78,8 @@ class HttpResponse(ResponseHead):
 
     def status(self, responseCode:int = None, responseText:str = None):
         self.responseStatus = responseCode or self.responseStatus
-        self.responseStatusText = responseText or self.responseStatusText
+        responseText = responseText or get_status_text_from_status_code(self.responseStatus)
+        self.responseStatusText = responseText
         return self
 
     def append_header(self, name: str, value: str):

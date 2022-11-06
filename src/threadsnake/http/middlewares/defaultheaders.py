@@ -1,4 +1,3 @@
-from re import S
 import time
 from typing import Dict
 from ..core.httprequest import HttpRequest

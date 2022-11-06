@@ -1,0 +1,16 @@
+{
+    "version": {
+        "major": 1,
+        "minor": 0,
+        "build": 25
+    },
+    "options": {
+        "cleanDist": true
+    },
+    "templates": {
+        "wheel": "threadsnake-{version}-py3-none-any.whl"
+    },
+    "commands": {
+        "uninstall": "pip3 uninstall -y threadsnake"
+    }
+}
