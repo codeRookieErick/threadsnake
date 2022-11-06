@@ -49,6 +49,26 @@ def routes_to(app:Application, path:str, root:str):
         if isinstance(router, Router):
             app.use_router(router, root)
 
+def routes_to_folder(app:Application, path:str):
+    location:str = os.path.dirname(os.path.abspath(__main__.__file__))
+    fullSearchPath = os.sep.join([location, path])
+    fullSearchPath = fullSearchPath.replace('/', os.sep).replace('\\', os.sep)
+    files = [
+        [path, result[0][len(fullSearchPath)+1:].replace('\\', '/'), file[:-3]] 
+        for result in os.walk(fullSearchPath) for file in result[2]
+        if file.endswith('.py')
+    ]
+    routes = [
+        [
+            '/'.join([j for j in i if len(j) > 0]),
+            '/'.join([j for j in i[1:] if len(j) > 0])
+        ]
+        for i in files
+    ]
+    for route in routes:
+        path, root = route
+        routes_to(app, path, root)
+
 ##def get_routers(moduleName:str) -> List[Router]:
 ##    routers:List[Router] = []
 ##    module:ModuleType = importlib.import_module(moduleName)

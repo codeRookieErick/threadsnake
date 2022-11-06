@@ -25,7 +25,7 @@ from ..application import Application
 def static(rootFolder:str = 'static') -> Middleware:
     def middleware(app:Application, req:HttpRequest, res:HttpResponse, next:Next):
         normalizedUrl = req.path.replace('\\', os.sep).replace('..', '')
-        filename:str = os.sep.join([rootFolder, normalizedUrl])
+        filename:str = os.sep.join([app.folder, rootFolder, normalizedUrl])
         if os.path.isfile(filename):
             res.read_file(filename)
         else:

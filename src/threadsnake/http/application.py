@@ -22,12 +22,15 @@ from .core.httprequest import retrieve_query_pass
 from .core.httpserver import HttpServer, HttpServerMessage
 from .router import Router
 from .types import Callback, Middleware
+import __main__
+import os
 
 class Application(HttpServer, Router):
     def __init__(self, port: int, hostName: str = 'localhost', backlog: int = 8, chunkSize: int = 1024):
         HttpServer.__init__(self, port, hostName, backlog, chunkSize)
         Router.__init__(self)
         self.stack:List[Middleware] = []
+        self.folder:str = os.path.dirname(__main__.__file__)
     
     def configure(self, middleware:Middleware):
         self.stack.append(middleware)
