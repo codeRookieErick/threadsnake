@@ -1,18 +1,18 @@
-from asyncio import subprocess
 import os
 import json
-from typing import Dict, List
+from typing import List
 
-commands:List[str] = ["::Auto-generate4d script"]
+commands:List[str] = []
 
 configurationPath:str = os.sep.join([os.path.abspath(os.curdir), 'build.json'])
-
 
 file = open(configurationPath, 'r')
 configuration = json.load(file)
 file.close()
 
-configuration["version"]["build"] += 1
+upload:bool = configuration["options"]["upload"]
+
+configuration["version"]["build"] += configuration["options"]["incrementBuild"]
 
 if configuration["options"]["cleanDist"] and os.path.isdir("dist"):
     for f in os.listdir("dist"):
@@ -29,8 +29,10 @@ wheel:str = configuration["templates"]["wheel"].replace("{version}", version)
 commands.append(f'echo {version} > src\\threadsnake\\version.txt')
 commands.append(f'call py -m build')
 commands.append(configuration["commands"]["uninstall"])
-commands.append(f'pip3 install dist\\{wheel}')
+commands.append(f'pip3 install dist\\{wheel} --no-cache-dir')
 
+if upload:
+    commands.append("py -m twine upload dist/*")
 
 for command in commands:
     os.system(command)
